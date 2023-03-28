@@ -11,7 +11,20 @@ public class LoginDialog extends Dialog {
 
     private EditText edtUsername, edtPassword;
     private Button btnSignIn;
-    private MainActivity.MyOnLoginListener myOnLoginListener;
+
+    public interface OnLoginListener {
+        void onSuccess();
+        void onFailure();
+    }
+
+    private OnLoginListener onLoginListener;
+
+    public void setOnLoginListener(OnLoginListener onLoginListener) {
+        this.onLoginListener = onLoginListener;
+    }
+
+    //private MainActivity.MyOnLoginListener myOnLoginListener;
+
 
     public LoginDialog(Context context) {
         super(context);
@@ -31,9 +44,9 @@ public class LoginDialog extends Dialog {
         btnSignIn.setOnClickListener(new BtnSignInClickListener());
     }
 
-    public void setOnLoginListener(MainActivity.MyOnLoginListener myOnLoginListener) {
+   /* public void setOnLoginListener(MainActivity.MyOnLoginListener myOnLoginListener) {
         this.myOnLoginListener = myOnLoginListener;
-    }
+    }*/
 
     private class BtnSignInClickListener implements View.OnClickListener {
         @Override
@@ -41,16 +54,25 @@ public class LoginDialog extends Dialog {
             if(edtUsername.getText().toString().equals("bitcode")
                     && edtPassword.getText().toString().equals("bitcode")) {
                 dismiss();
-                if(myOnLoginListener != null) {
-                    myOnLoginListener.onSuccess();
+
+                if(onLoginListener != null) {
+                    onLoginListener.onSuccess();
                 }
+
+                /*if(myOnLoginListener != null) {
+                    myOnLoginListener.onSuccess();
+                }*/
                 /*mt(view.getContext(), "Login Successful");
                 //start home activity*/
             }
             else {
                 //mt(view.getContext(), "Login failed");
-                if(myOnLoginListener != null) {
+                /*if(myOnLoginListener != null) {
                     myOnLoginListener.onFailure();
+                }*/
+
+                if(onLoginListener != null) {
+                    onLoginListener.onFailure();
                 }
             }
         }

@@ -35,9 +35,22 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View view) {
 
             LoginDialog loginDialog = new LoginDialog(MainActivity.this);
-            loginDialog.setOnLoginListener(new MyOnLoginListener());
+            //loginDialog.setOnLoginListener(new MyOnLoginListener());
+            loginDialog.setOnLoginListener(new MyCustomLoginListener());
             loginDialog.show();
 
+        }
+    }
+
+    class MyCustomLoginListener implements LoginDialog.OnLoginListener {
+        @Override
+        public void onSuccess() {
+            mt("My success action");
+        }
+
+        @Override
+        public void onFailure() {
+            mt("My failed action");
         }
     }
 
