@@ -23,13 +23,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupListeners() {
-        btnLogin.setOnClickListener(new BtnLoginClickListeners());
+        btnLogin.setOnClickListener(new BtnLoginClickListener());
     }
     private void initViews() {
         btnLogin = findViewById(R.id.btnLogin);
     }
 
-    private class BtnLoginClickListeners implements View.OnClickListener {
+
+    private class BtnLoginClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+
+            LoginDialog loginDialog = new LoginDialog(MainActivity.this);
+            loginDialog.show();
+
+        }
+    }
+
+
+    /*private class BtnLoginClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
 
@@ -60,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             loginDialog.show();
 
         }
-    }
+    }*/
 
     private void mt(String text) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
