@@ -11,6 +11,7 @@ public class LoginDialog extends Dialog {
 
     private EditText edtUsername, edtPassword;
     private Button btnSignIn;
+    private MainActivity.MyOnLoginListener myOnLoginListener;
 
     public LoginDialog(Context context) {
         super(context);
@@ -30,17 +31,27 @@ public class LoginDialog extends Dialog {
         btnSignIn.setOnClickListener(new BtnSignInClickListener());
     }
 
+    public void setOnLoginListener(MainActivity.MyOnLoginListener myOnLoginListener) {
+        this.myOnLoginListener = myOnLoginListener;
+    }
+
     private class BtnSignInClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
             if(edtUsername.getText().toString().equals("bitcode")
                     && edtPassword.getText().toString().equals("bitcode")) {
                 dismiss();
-                mt(view.getContext(), "Login Successful");
-                //start home activity
+                if(myOnLoginListener != null) {
+                    myOnLoginListener.onSuccess();
+                }
+                /*mt(view.getContext(), "Login Successful");
+                //start home activity*/
             }
             else {
-                mt(view.getContext(), "Login failed");
+                //mt(view.getContext(), "Login failed");
+                if(myOnLoginListener != null) {
+                    myOnLoginListener.onFailure();
+                }
             }
         }
     }

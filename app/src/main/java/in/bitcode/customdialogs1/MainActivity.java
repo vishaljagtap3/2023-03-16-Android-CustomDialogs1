@@ -35,8 +35,19 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View view) {
 
             LoginDialog loginDialog = new LoginDialog(MainActivity.this);
+            loginDialog.setOnLoginListener(new MyOnLoginListener());
             loginDialog.show();
 
+        }
+    }
+
+    class MyOnLoginListener {
+        public void onSuccess() {
+            mt("Custom success action");
+        }
+
+        public void onFailure() {
+            mt("Custom failed action");
         }
     }
 
@@ -77,4 +88,6 @@ public class MainActivity extends AppCompatActivity {
     private void mt(String text) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
+
+
 }
